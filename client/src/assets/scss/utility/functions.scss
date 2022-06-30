@@ -1,0 +1,133 @@
+@mixin newFont($family,$pathName,$weight, $style: normal) {
+    @font-face {
+        font-family: '#{$family}';
+        src: url('/public/fonts/#{$pathName}.woff2') format('woff2'), url('/public/fonts/#{$pathName}.woff') format('woff');
+        font-weight: #{$weight};
+        font-style: $style;
+        font-display: swap;
+    }
+}
+
+@function hsla-str($color) {
+    @return unquote('hsla(#{hue($color)/1deg}, #{saturation($color)}, #{lightness($color)}, #{alpha($color)})');
+}
+
+@function hsla-new($color, $options) {
+    $newL: lightness($color);
+    $newA: alpha($color);
+
+    @if (map-get($options, 'l')) {
+        $newL: map-get($options, 'l');
+    }
+
+    @if (map-get($options, 'a')) {
+        $newA: map-get($options, 'a');
+    }
+
+    @return hsla(hue($color)/1deg, saturation($color), $newL, $newA);
+}
+
+@function toRem($size) {
+    $remSize: $size / 12 * 1rem;
+
+    @return $remSize;
+}
+
+@function freezeRem($size) {
+    $newSize: $size * 1.2 * 1px;
+
+    @return $newSize;
+}
+
+@mixin getPositionStyle($style, $direction, $value) {
+    @if $direction == $style {
+        #{ $direction }: $value;
+    }
+
+    @else if $direction == vertical {
+        $styleNameTop: #{ $style } + '-top';
+        $styleNameBottom: #{ $style } + '-bottom';
+
+        #{$styleNameTop}: $value;
+        #{$styleNameBottom}: $value;
+    }
+
+    @else if $direction == horizontal {
+
+        $styleNameLeft: #{ $style } + '-left';
+        $styleNameRight: #{ $style } + '-right';
+
+        #{$styleNameLeft}: $value;
+        #{$styleNameRight}: $value;
+        #{ $style }: 0 $value;
+    }
+
+    @else if $direction == both {
+        #{ $style }: $value;
+    }
+
+    @else {
+        $styleName: #{ $style } + '-' + #{ $direction };
+
+        #{ $styleName }: #{$value};
+    }
+}
+
+@mixin center($position:'both') {
+    position: absolute;
+
+    @if $position == 'vertical' {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    @else if $position == 'horizontal' {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    @else if $position == 'both' {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @else if $position == 'stretch' {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@function to-unit($value) {
+    @if type-of($value) != 'string' {
+        @error 'Value for `to-unit` should be a string.';
+    }
+
+    $units: ('px': 1px, 'cm': 1cm, 'mm': 1mm, '%': 1%, 'ch': 1ch, 'pc': 1pc, 'in': 1in, 'em': 1em, 'rem': 1rem, 'pt': 1pt, 'ex': 1ex, 'vw': 1vw, 'vh': 1vh, 'vmin': 1vmin, 'vmax': 1vmax);
+    $parsed-unit: false;
+
+    @each $unit in $units {
+        @if (str-index($value, nth($unit, 1))) {
+            $parsed-unit: nth($unit, 2);
+        }
+    }
+
+    @if (not $parsed-unit) {
+        @error 'Invalid unit `#{$value}`.';
+    }
+
+    @return $parsed-unit;
+}
+
+@mixin ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+@mixin mono-space {
+    font-feature-settings: 'tnum' on, 'lnum' on;
+}

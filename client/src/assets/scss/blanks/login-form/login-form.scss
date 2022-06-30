@@ -1,0 +1,39 @@
+.login-form {
+    backdrop-filter: blur(4px);
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: toRem(20);
+    padding: toRem(20);
+    width: toRem(300);
+    &__header {
+        font-size: toRem(24);
+        font-weight: bold;
+        margin-bottom: toRem(20);
+        text-align: center;
+    }
+    &__field {
+        &+& {
+            margin-top: toRem(10);
+        }
+    }
+    &__label {
+        font-size: toRem(12);
+        display: block;
+        margin-bottom: toRem(8);
+    }
+    &__input {
+        background-color: #ffffff;
+        border-radius: toRem(4);
+        padding: toRem(5);
+    }
+    &__button {
+        border-radius: toRem(4);
+        padding: toRem(5) toRem(15);
+        background-color: #333333;
+        color: #fff;
+    }
+    &__footer {
+        margin-top: toRem(25);
+        display: flex;
+        justify-content: space-between;
+    }
+}

@@ -1,21 +1,28 @@
 import nodemailer from 'nodemailer'
 
+const mailOptions = {
+	SENDINBLUE_SMTP_HOST: 'smtp-relay.sendinblue.com',
+	SENDINBLUE_SMTP_PORT: 587,
+	SENDINBLUE_SMTP_USER: 'auth.freedman@gmail.com',
+	SENDINBLUE_SMTP_PASSWORD: 'zK4mU5BbnWEgwcIh'
+}
+
 class MailService {
 	constructor() {
 		this.transporter = nodemailer.createTransport({
-			host: process.env.SENDINBLUE_SMTP_HOST,
-			port: process.env.SENDINBLUE_SMTP_PORT,
+			host: mailOptions.SENDINBLUE_SMTP_HOST,
+			port: mailOptions.SENDINBLUE_SMTP_PORT,
 			secure: false,
 			auth: {
-				user: process.env.SENDINBLUE_SMTP_USER,
-				pass: process.env.SENDINBLUE_SMTP_PASSWORD,
+				user: mailOptions.SENDINBLUE_SMTP_USER,
+				pass: mailOptions.SENDINBLUE_SMTP_PASSWORD,
 			}
 		})
 	}
 
 	async sendActivationMail(to, link) {
 		await this.transporter.sendMail({
-			from: process.env.SENDINBLUE_SMTP_USER,
+			from: mailOptions.SENDINBLUE_SMTP_USER,
 			to,
 			subject: `Активация аккаунта на ${process.env.API_URL}`,
 			text: '',

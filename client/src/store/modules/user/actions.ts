@@ -12,7 +12,6 @@ import UserService from "@/js/services/UserService";
 const loginUser = async ({ commit }: ActionContext<StateUser, StateRoot>, payload: {email: string, password: string}) => {
     try {
         const response = await AuthService.login(payload.email, payload.password)
-        console.log(response);
 
         localStorage.setItem('token', response.data.accessToken)
 
@@ -28,7 +27,6 @@ export type UserLoginUserAction = ActionType<typeof loginUser>
 const registrationUser = async ({ commit }: ActionContext<StateUser, StateRoot>, payload: {email: string, password: string}) => {
     try {
         const response = await AuthService.registration(payload.email, payload.password)
-        console.log(response);
 
         localStorage.setItem('token', response.data.accessToken)
 
@@ -44,7 +42,6 @@ export type UserRegistrationUserAction = ActionType<typeof registrationUser>
 const logoutUser = async ({ commit }: ActionContext<StateUser, StateRoot>) => {
     try {
         const response = await AuthService.logout()
-        console.log(response);
 
         localStorage.removeItem('token')
 
@@ -60,7 +57,6 @@ export type UserLogoutUserAction = ActionType<typeof logoutUser>
 const checkAuthUser = async ({ commit }: ActionContext<StateUser, StateRoot>) => {
     try {
         const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
-        console.log(response);
 
         localStorage.setItem('token', response.data.accessToken)
 

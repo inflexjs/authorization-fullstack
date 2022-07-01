@@ -14,7 +14,10 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
 	credentials: true,
-	origin: process.env.CLIENT_URL
+	origin: [
+		`http://${process.env.CLIENT_URL}`,
+		`https://${process.env.CLIENT_URL}`
+	]
 }))
 app.use('/api', router)
 app.use(errorMiddleware)

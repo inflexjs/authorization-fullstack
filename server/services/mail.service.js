@@ -24,7 +24,7 @@ class MailService {
 		await this.transporter.sendMail({
 			from: mailOptions.SENDINBLUE_SMTP_USER,
 			to,
-			subject: `Активация аккаунта на ${process.env.API_URL}`,
+			subject: `Активация аккаунта на ${process.env.APP_URL.replace('http://', '')}`,
 			text: '',
 			html:
 				`
@@ -63,7 +63,7 @@ class MailService {
 														<tbody>
 															<tr>
 																<td width="101" align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;margin:0;padding-top:3px;padding-right:0;padding-right:0;padding-bottom:0;padding-left:0;font-size:7px;text-align: left;">
-																	<span style="color:#939598;text-transform:uppercase;">Powered by ${process.env.API_URL}</span>
+																	<span style="color:#939598;text-transform:uppercase;">Powered by ${process.env.APP_URL}</span>
 																</td>
 															</tr>
 														</tbody>

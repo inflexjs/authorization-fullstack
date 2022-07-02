@@ -24,7 +24,7 @@ class MailService {
 		await this.transporter.sendMail({
 			from: mailOptions.SENDINBLUE_SMTP_USER,
 			to,
-			subject: `Активация аккаунта на ${process.env.APP_URL.replace('http://', '')}`,
+			subject: `Активация аккаунта на ${process.env.APP_URL}`,
 			text: '',
 			html:
 				`

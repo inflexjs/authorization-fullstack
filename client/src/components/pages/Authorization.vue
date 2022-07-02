@@ -11,8 +11,8 @@
 				v-if="!isAuth"
 			)
 			button.__users(
-				v-on:click="getUsers"
-			) Get Users
+				v-on:click="hello"
+			) Say Hello
 			template(
 				v-if="isAuth"
 			)
@@ -36,6 +36,9 @@ import LoginForm from "@/components/blanks/LoginForm.vue";
 import {Action, Getter} from "@/decorators";
 import {UserCheckAuthUserAction} from "@/store/modules/user/actions";
 import {UserIsAuthGetter, UserUserGetter, UserUsersGetter} from "@/store/modules/user/getters";
+import axios from "axios";
+import {AuthResponse} from "@/js/types/AuthResponse";
+import {API_URL} from "@/js/http";
 
 @Component({
 	components: {
@@ -63,6 +66,16 @@ export default class Authorization extends Vue {
 		return this.user?.isActivated
 			? `Аккаунт подтвержден по почте`
 			: `Подтвердите аккаунт`
+	}
+	
+	async hello() {
+		try {
+			const resp = await axios.get<AuthResponse>(`${API_URL}/hello`, {withCredentials: true})
+			console.log(resp)
+			return resp
+		} catch (e) {
+			console.log(e)
+		}
 	}
 	
 	async mounted() {

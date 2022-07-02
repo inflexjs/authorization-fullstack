@@ -17,5 +17,6 @@ router.get('/refresh', userController.refresh)
 router.get('/users',
 	[authMiddleware, activatedMiddleware],
 	userController.getUsers)
+router.get('/hello', userController.hello)
 
 export default router

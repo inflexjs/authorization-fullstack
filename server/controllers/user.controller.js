@@ -73,6 +73,13 @@ class UserController {
 			next(e)
 		}
 	}
+	async hello(req, res, next) {
+		try {
+			return res.json('Hello from server')
+		} catch (e) {
+			next(e)
+		}
+	}
 }
 
 export default new UserController()

@@ -70,7 +70,7 @@ export default class Authorization extends Vue {
 	
 	async hello() {
 		try {
-			const resp = await axios.get<AuthResponse>(`http://inflexible.ru:8087/api/hello`, {withCredentials: true})
+			const resp = await axios.get<AuthResponse>(`${API_URL}/hello`, {withCredentials: true})
 			console.log(resp)
 			return resp
 		} catch (e) {
